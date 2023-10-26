@@ -5,11 +5,13 @@ import { Link } from "react-router-dom";
 import Layout from "../components/Layout";
 
 const HomePage = () => {
-  const [data, setData] = useState<IMovie[]>([]);
+  const [movies, setMovies] = useState<IMovie[]>([]);
+
   useEffect(() => {
+    setIsLoading(true);
     axios
       .get("http://localhost:5476/movies")
-      .then((res) => setData(res.data))
+      .then((res) => setMovies(res.data))
       .catch((err) => console.log(err));
   }, []);
   return (
@@ -23,12 +25,16 @@ const HomePage = () => {
           <button>❌</button>
         </article>
 
-        {data.map((d, i) => (
+        {movies.map((d, i) => (
           <article className="movie-card" key={i}>
             <h3>{d.title}</h3>
             <h4>{d.year}</h4>
-            <button>✏️</button>
-            <button>❌</button>
+            <Link to="/EditPage" role="button">
+              📝
+            </Link>
+            <Link to="/EditPage" role="button">
+              🚮
+            </Link>
           </article>
         ))}
       </div>

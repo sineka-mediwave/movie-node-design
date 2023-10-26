@@ -5,7 +5,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/HomePage";
 import NotfoundPage from "./pages/NotfoundPage";
 import Loading from "./components/Loading";
-const Addmovie = lazy(() => import("./pages/Addmovie"));
+const Addmovie = lazy(() => import("./pages/AddmoviePage"));
+const EditPage = lazy(() => import("./pages/EditPage"));
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/addmovie" element={<Addmovie />} />
+          <Route path="/EditPage:id" element={<EditPage />} />
           <Route path="*" element={<NotfoundPage />} />
         </Routes>
       </BrowserRouter>
