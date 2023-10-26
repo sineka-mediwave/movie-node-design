@@ -1,9 +1,11 @@
 import { useState } from "react";
-
+import { IMovie } from "../type";
 const Form = () => {
+  const [movie, setMovie] = useState<IMovie>();
+
   return (
     <form>
-      <div className="grid">
+      <div className="form-input">
         <label>
           Movie Title
           <input

@@ -6,7 +6,9 @@ const EditPage = () => {
     <Layout title="edit">
       <h1>Edit</h1>
       <Form />
-      <button type="submit">Save</button>
+      <button type="submit" className="form-input">
+        Save
+      </button>
     </Layout>
   );
 };

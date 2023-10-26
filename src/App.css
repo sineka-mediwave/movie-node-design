@@ -41,3 +41,8 @@ a {
   display: flex;
   justify-content: space-evenly;
 }
+
+.form-input {
+  margin: 0 auto;
+  width: 500px;
+}
