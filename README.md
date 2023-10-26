@@ -38,9 +38,28 @@ useEffect(() => {
   }, []);
 ```
 
+- Axios with async & await method
+
+```
+useEffect(() => {
+    async function getMoviesFromAPI() {
+      setIsLoading(true);
+      try {
+        const response = await getMovies();
+        setMovies(response.data);
+      } catch (err) {
+        console.log(err);
+      } finally {
+        setIsLoading(false);
+      }
+    }
+    getMoviesFromAPI();
+  }, [refresh]);
+```
+
 ### Home page
 
 Home page has a title and list of card with movie title and release year.
 
 - Each moviecard has two button edit and delete.
-- These button calls the api PUT and DELETE function. these button emoji are taken from [here](https://github.com/sineka-mediwave/movie-node-design)
+- These button calls the api PUT and DELETE function. these button emoji are taken from [here](https://emojipedia.org/)

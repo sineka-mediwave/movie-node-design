@@ -1,5 +1,9 @@
-h1 {
+h1,
+p {
   text-align: center;
+}
+a {
+  margin-left: 20px;
 }
 .gridBox {
   display: grid;
@@ -13,14 +17,27 @@ h1 {
   background: hsl(205 25% 21% / 1);
   transition: transform 0.2s;
 }
-/* .movie-card:hover {
-  -ms-transform: scale(1.1);
-  -webkit-transform: scale(1.1); 
-  transform: scale(1.1);
-} */
+
 .movie-card h3 {
   width: 20ch;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+}
+
+.action {
+  margin: inherit;
+  display: flex;
+  justify-content: end;
+}
+
+.refresh-btn {
+  margin: 0;
+  width: 62px;
+  height: 62px;
+}
+
+.home-bar {
+  display: flex;
+  justify-content: space-evenly;
 }

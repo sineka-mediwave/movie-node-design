@@ -1,5 +1,9 @@
 const Loading = () => {
-  return <>Loading</>;
+  return (
+    <>
+      <p>Loading Movies</p>
+    </>
+  );
 };
 
 export default Loading;
