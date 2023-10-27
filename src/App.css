@@ -44,11 +44,13 @@ a {
 }
 
 .action {
-  margin: inherit;
   display: flex;
   justify-content: end;
 }
 
+.action button {
+  margin: 0 20px;
+}
 .refresh-btn {
   margin: 0;
   width: 62px;

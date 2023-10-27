@@ -1,15 +1,22 @@
 import { useEffect, useState } from "react";
-import { IMovie } from "../type";
+import { IMovie, IShowError } from "../type";
 import { Link } from "react-router-dom";
 import Layout from "../components/Layout";
-import { getMovies } from "../services/api";
+import { deleteMovie, getMovies } from "../services/api";
 import Loading from "../components/Loading";
 
 const HomePage = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [refresh, setRefresh] = useState(false);
   const [movies, setMovies] = useState<IMovie[]>([]);
-
+  const [showModal, setShowModal] = useState(false);
+  const [showModalMsg, setShowModalMsg] = useState<IShowError>({
+    action: "",
+    msg: "",
+  });
+  const toggleModal = () => {
+    setShowModal((prevShowModal) => !prevShowModal);
+  };
   useEffect(() => {
     async function getMoviesFromAPI() {
       setIsLoading(true);
@@ -24,6 +31,33 @@ const HomePage = () => {
     }
     getMoviesFromAPI();
   }, [refresh]);
+  async function handleDelete(id: number | undefined) {
+    toggleModal();
+    try {
+      setRefresh(true);
+      if (id) {
+        await deleteMovie(id);
+      }
+      setShowModalMsg({
+        action: "succes",
+        msg: "deleted",
+      });
+    } catch (error) {
+      if (error instanceof Error) {
+        setShowModalMsg({
+          action: "failed",
+          msg: error.message,
+        });
+      } else {
+        setShowModalMsg({
+          action: "failed",
+          msg: "An unknown error occurred.",
+        });
+      }
+    } finally {
+      setRefresh(false);
+    }
+  }
 
   return (
     <Layout title="home">
@@ -52,10 +86,28 @@ const HomePage = () => {
                 <Link to="/edit" role="button">
                   📝
                 </Link>
-                <Link to="/EditPage" role="button">
+                <button
+                  onClick={() => handleDelete(d.id)}
+                  className="refresh-btn"
+                >
                   🚮
-                </Link>
+                </button>
               </div>
+              {showModal && (
+                <dialog open>
+                  <article>
+                    <a
+                      href="#close"
+                      aria-label="Close"
+                      className="close"
+                      data-target="modal-example"
+                      onClick={toggleModal}
+                    ></a>
+                    <h3>{showModalMsg.action}</h3>
+                    <p>{showModalMsg.msg}</p>
+                  </article>
+                </dialog>
+              )}
             </article>
           ))}
         </div>

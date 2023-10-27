@@ -63,3 +63,7 @@ Home page has a title and list of card with movie title and release year.
 
 - Each moviecard has two button edit and delete.
 - These button calls the api PUT and DELETE function. these button emoji are taken from [here](https://emojipedia.org/)
+
+## Model Page
+
+- while deleting it displays the model page. This page containes the action and its message.
