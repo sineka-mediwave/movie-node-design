@@ -67,3 +67,4 @@ Home page has a title and list of card with movie title and release year.
 ## Model Page
 
 - while deleting it displays the model page. This page containes the action and its message.
+- also created component for form inputs

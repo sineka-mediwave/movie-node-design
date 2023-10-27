@@ -85,7 +85,7 @@ const HomePage = () => {
               <h3>{m.title}</h3>
               <h4>{m.year}</h4>
               <div className="action">
-                <Link to={`/edit/${m.id}`} role="button">
+                <Link to={`/edit/${m.id}`} role="button" state={m}>
                   📝
                 </Link>
                 <button

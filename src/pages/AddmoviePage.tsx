@@ -13,11 +13,9 @@ const AddmoviePage = () => {
         title: m.title,
         year: m.year,
       };
-      const res = await addMovie(moviePayload);
-      console.log(res);
+      await addMovie(moviePayload);
       navigate("/");
     } catch (err) {
-      console.log(err);
       navigate("/error");
     }
   }
@@ -25,6 +23,7 @@ const AddmoviePage = () => {
     <Layout title="movieForm">
       <h1>Add Movie</h1>
       <Form type="add" addingMovie={handleAdd} />
+      {/* <Model /> */}
     </Layout>
   );
 };

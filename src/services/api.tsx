@@ -25,3 +25,7 @@ export const updateMovie = (payload: IMovieAdd, movieId: number) => {
 export const deleteMovie = (movieId: number) => {
   return axiosInstance.delete(`/movies/${movieId}`);
 };
+
+export const getMovie = async (movieId: number) => {
+  return axiosInstance.get(`/movies/${movieId}`);
+};
