@@ -29,7 +29,7 @@ const HomePage = () => {
     <Layout title="home">
       <h1>Movie API</h1>
       <div className="home-bar">
-        <Link to="/Addmovie" role="button">
+        <Link to="/add" role="button">
           ➕
         </Link>
         <button

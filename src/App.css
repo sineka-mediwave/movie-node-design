@@ -11,6 +11,24 @@ a {
   grid-column-gap: var(--grid-spacing-horizontal);
   grid-row-gap: var(--grid-spacing-vertical);
 }
+
+@media screen and (max-width: 1650px) {
+  .gridBox {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+
+@media screen and (max-width: 1400px) {
+  .gridBox {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .gridBox {
+    display: block;
+  }
+}
 .movie-card {
   border: 1px solid #1f1f1f;
   box-shadow: 0 0 10px #fff;
@@ -45,4 +63,9 @@ a {
 .form-input {
   margin: 0 auto;
   width: 500px;
+}
+
+.form-btn {
+  width: 240px;
+  height: 62px;
 }

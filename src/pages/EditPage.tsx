@@ -5,10 +5,7 @@ const EditPage = () => {
   return (
     <Layout title="edit">
       <h1>Edit</h1>
-      <Form />
-      <button type="submit" className="form-input">
-        Save
-      </button>
+      <Form type="edit" />
     </Layout>
   );
 };

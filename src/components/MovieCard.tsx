@@ -10,10 +10,12 @@ const MovieCard: React.FC<IMovie> = (d) => {
         <Link to="/edit" role="button">
           📝
         </Link>
-        <Link to="/EditPage" role="button">
+        <Link to="/delete" role="button">
           🚮
         </Link>
       </div>
     </>
   );
 };
+
+export default MovieCard;
