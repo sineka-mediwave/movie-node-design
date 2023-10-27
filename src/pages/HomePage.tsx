@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import Layout from "../components/Layout";
 import { deleteMovie, getMovies } from "../services/api";
 import Loading from "../components/Loading";
+import Model from "../components/Model";
 
 const HomePage = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -31,6 +32,7 @@ const HomePage = () => {
     }
     getMoviesFromAPI();
   }, [refresh]);
+
   async function handleDelete(id: number | undefined) {
     toggleModal();
     try {
@@ -39,8 +41,8 @@ const HomePage = () => {
         await deleteMovie(id);
       }
       setShowModalMsg({
-        action: "succes",
-        msg: "deleted",
+        action: "success",
+        msg: "Card deleted",
       });
     } catch (error) {
       if (error instanceof Error) {
@@ -78,35 +80,28 @@ const HomePage = () => {
         <Loading />
       ) : (
         <div className="gridBox">
-          {movies.map((d, i) => (
+          {movies.map((m, i) => (
             <article className="movie-card" key={i}>
-              <h3>{d.title}</h3>
-              <h4>{d.year}</h4>
+              <h3>{m.title}</h3>
+              <h4>{m.year}</h4>
               <div className="action">
-                <Link to="/edit" role="button">
+                <Link to={`/edit/${m.id}`} role="button">
                   📝
                 </Link>
                 <button
-                  onClick={() => handleDelete(d.id)}
+                  onClick={() => handleDelete(m.id)}
                   className="refresh-btn"
                 >
                   🚮
                 </button>
               </div>
               {showModal && (
-                <dialog open>
-                  <article>
-                    <a
-                      href="#close"
-                      aria-label="Close"
-                      className="close"
-                      data-target="modal-example"
-                      onClick={toggleModal}
-                    ></a>
-                    <h3>{showModalMsg.action}</h3>
-                    <p>{showModalMsg.msg}</p>
-                  </article>
-                </dialog>
+                <>
+                  <Model
+                    showModalMsg={showModalMsg}
+                    toggleModel={toggleModal}
+                  />
+                </>
               )}
             </article>
           ))}

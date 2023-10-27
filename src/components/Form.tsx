@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { IMovie } from "../type";
 import { Link } from "react-router-dom";
+import FormInputs from "./FormInputs";
 interface IForm {
   type: string;
   addingMovie?: (m: IMovie) => void;
@@ -28,29 +29,18 @@ const Form: React.FC<IForm> = ({ type, addingMovie }) => {
   return (
     <form onSubmit={(e) => handleSubmit(e)}>
       <div className="form-input">
-        <label>
-          Movie Title
-          <input
-            type="text"
-            id="title"
-            name="title"
-            onChange={(e) => handleChange(e)}
-            placeholder="Enter movie name"
-            required
-          />
-        </label>
-
-        <label>
-          Release Year
-          <input
-            type="text"
-            id="year"
-            name="year"
-            onChange={(e) => handleChange(e)}
-            placeholder="Enter year"
-            required
-          />
-        </label>
+        <FormInputs
+          label="Enter Movie Title"
+          type="text"
+          name="title"
+          handleChange={handleChange}
+        />
+        <FormInputs
+          label="Enter Release Year"
+          type="number"
+          name="year"
+          handleChange={handleChange}
+        />
       </div>
       {type == "edit" ? (
         <div className="form-input home-bar">
