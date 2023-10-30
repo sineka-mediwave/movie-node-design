@@ -36,24 +36,19 @@ const HomePage = () => {
   async function handleDelete(id: number | undefined) {
     toggleModal();
     try {
-      setRefresh(true);
+      // setRefresh(true);
       if (id) {
         await deleteMovie(id);
       }
       setShowModalMsg({
         action: "success",
-        msg: "Card deleted",
+        msg: "Movie Card is deleted",
       });
     } catch (error) {
       if (error instanceof Error) {
         setShowModalMsg({
           action: "failed",
           msg: error.message,
-        });
-      } else {
-        setShowModalMsg({
-          action: "failed",
-          msg: "An unknown error occurred.",
         });
       }
     } finally {

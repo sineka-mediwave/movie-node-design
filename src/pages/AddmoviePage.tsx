@@ -1,11 +1,16 @@
 import Layout from "../components/Layout";
 import Form from "../components/Form";
-import { useNavigate } from "react-router-dom";
+import Model from "../components/Model";
 import { addMovie } from "../services/api";
-import { IMovie } from "../type";
+import { IMovie, IShowError } from "../type";
+import { useState } from "react";
 
 const AddmoviePage = () => {
-  const navigate = useNavigate();
+  const [showModal, setShowModal] = useState(false);
+  const [showModalMsg, setShowModalMsg] = useState<IShowError>({
+    action: "",
+    msg: "",
+  });
 
   async function handleAdd(m: IMovie) {
     try {
@@ -14,16 +19,26 @@ const AddmoviePage = () => {
         year: m.year,
       };
       await addMovie(moviePayload);
-      navigate("/");
-    } catch (err) {
-      navigate("/error");
+      setShowModalMsg({
+        action: "Succes",
+        msg: "Movie successfully Added",
+      });
+    } catch (error) {
+      if (error instanceof Error) {
+        setShowModalMsg({
+          action: "Failed",
+          msg: error.message,
+        });
+      }
+    } finally {
+      setShowModal(true);
     }
   }
   return (
     <Layout title="movieForm">
       <h1>Add Movie</h1>
       <Form type="add" addingMovie={handleAdd} />
-      {/* <Model /> */}
+      {showModal && <Model showModalMsg={showModalMsg} />}
     </Layout>
   );
 };
