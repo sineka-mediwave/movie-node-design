@@ -22,8 +22,18 @@ const EditPage = () => {
           const response = await getMovie(id);
           setMovie(response.data);
         }
-      } catch (err) {
-        console.log(err);
+      } catch (error) {
+        if (error instanceof Error) {
+          console.error("Error deleting movie:", error);
+
+          setShowModalMsg({
+            action: "Failed",
+            msg: error.message,
+          });
+          console.log(error.message);
+        }
+      } finally {
+        setShowModal(true);
       }
     }
     if (id) {
@@ -59,9 +69,9 @@ const EditPage = () => {
         <Layout title={`edit:${movie.title}`}>
           <h1>Editing {movie.title} movie</h1>
           <Form type="edit" getMovie={movie} addingMovie={handleUpdate} />
-          {showModal && <Model showModalMsg={showModalMsg} />}
         </Layout>
       )}
+      {showModal && <Model showModalMsg={showModalMsg} />}
     </>
   );
 };

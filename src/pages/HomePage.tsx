@@ -5,6 +5,7 @@ import Layout from "../components/Layout";
 import { deleteMovie, getMovies } from "../services/api";
 import Loading from "../components/Loading";
 import Model from "../components/Model";
+import MovieCard from "../components/MovieCard";
 
 const HomePage = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -21,11 +22,18 @@ const HomePage = () => {
   useEffect(() => {
     async function getMoviesFromAPI() {
       setIsLoading(true);
+
       try {
         const response = await getMovies();
         setMovies(response.data);
-      } catch (err) {
-        console.log(err);
+      } catch (error) {
+        if (error instanceof Error) {
+          setShowModal(true);
+          setShowModalMsg({
+            action: "failed",
+            msg: error.message,
+          });
+        }
       } finally {
         setIsLoading(false);
       }
@@ -34,9 +42,7 @@ const HomePage = () => {
   }, [refresh]);
 
   async function handleDelete(id: number | undefined) {
-    toggleModal();
     try {
-      setRefresh(true);
       if (id) {
         await deleteMovie(id);
       }
@@ -44,6 +50,7 @@ const HomePage = () => {
         action: "success",
         msg: "Movie Card is deleted",
       });
+      setRefresh((pre) => !pre);
     } catch (error) {
       if (error instanceof Error) {
         setShowModalMsg({
@@ -51,58 +58,41 @@ const HomePage = () => {
           msg: error.message,
         });
       }
-    } finally {
-      setRefresh(false);
     }
   }
 
   return (
-    <Layout title="home">
-      <h1>Movie API</h1>
-      <div className="home-bar">
-        <Link to="/add" role="button">
-          ➕
-        </Link>
-        <button
-          className="refresh-btn"
-          disabled={isLoading}
-          onClick={() => setRefresh((prev) => !prev)}
-        >
-          🔃
-        </button>
-      </div>
-      {isLoading ? (
-        <Loading />
-      ) : (
-        <div className="gridBox">
-          {movies.map((m, i) => (
-            <article className="movie-card" key={i}>
-              <h3>{m.title}</h3>
-              <h4>{m.year}</h4>
-              <div className="action">
-                <Link to={`/edit/${m.id}`} role="button" state={m}>
-                  📝
-                </Link>
-                <button
-                  onClick={() => handleDelete(m.id)}
-                  className="refresh-btn"
-                >
-                  🚮
-                </button>
-              </div>
-              {showModal && (
-                <>
-                  <Model
-                    showModalMsg={showModalMsg}
-                    toggleModel={toggleModal}
-                  />
-                </>
-              )}
-            </article>
-          ))}
+    <>
+      <Layout title="home">
+        <h1>Movie API</h1>
+        <div className="home-bar">
+          <Link to="/add" role="button">
+            <span className="busy"></span>➕
+          </Link>
+          <button
+            className="refresh-btn"
+            disabled={isLoading}
+            onClick={() => setRefresh((prev) => !prev)}
+          >
+            {isLoading ? <Loading /> : <>🔃</>}
+          </button>
         </div>
+        {isLoading ? (
+          <p>Loading Movies..</p>
+        ) : (
+          <div className="gridBox">
+            {movies.map((m, i) => (
+              <article className="movie-card" key={i}>
+                <MovieCard movie={m} handleDelete={handleDelete} />
+              </article>
+            ))}
+          </div>
+        )}
+      </Layout>
+      {showModal && (
+        <Model showModalMsg={showModalMsg} toggleModel={toggleModal} />
       )}
-    </Layout>
+    </>
   );
 };
 

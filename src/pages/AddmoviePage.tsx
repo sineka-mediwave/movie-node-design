@@ -35,11 +35,13 @@ const AddmoviePage = () => {
     }
   }
   return (
-    <Layout title="movieForm">
-      <h1>Add Movie</h1>
-      <Form type="add" addingMovie={handleAdd} />
+    <>
+      <Layout title="movieForm">
+        <h1>Add Movie</h1>
+        <Form type="add" addingMovie={handleAdd} />
+      </Layout>
       {showModal && <Model showModalMsg={showModalMsg} />}
-    </Layout>
+    </>
   );
 };
 
