@@ -36,7 +36,7 @@ const HomePage = () => {
   async function handleDelete(id: number | undefined) {
     toggleModal();
     try {
-      // setRefresh(true);
+      setRefresh(true);
       if (id) {
         await deleteMovie(id);
       }
