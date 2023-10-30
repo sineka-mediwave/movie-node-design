@@ -50,7 +50,7 @@ const HomePage = () => {
         action: "success",
         msg: "Movie Card is deleted",
       });
-      setRefresh((pre) => !pre);
+      setShowModal(true);
     } catch (error) {
       if (error instanceof Error) {
         setShowModalMsg({
@@ -58,6 +58,8 @@ const HomePage = () => {
           msg: error.message,
         });
       }
+    } finally {
+      setRefresh((pre) => !pre);
     }
   }
 

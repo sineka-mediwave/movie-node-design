@@ -9,6 +9,8 @@ interface IForm {
 }
 
 const Form: React.FC<IForm> = ({ type, getMovie, addingMovie }) => {
+  const [isLoading, setIsLoading] = useState(false);
+
   const [movie, setMovie] = useState<IMovie>(
     getMovie || { title: "", year: undefined }
   );
@@ -19,7 +21,7 @@ const Form: React.FC<IForm> = ({ type, getMovie, addingMovie }) => {
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-
+    setIsLoading(true);
     if (addingMovie) {
       addingMovie(movie);
     }
@@ -47,7 +49,7 @@ const Form: React.FC<IForm> = ({ type, getMovie, addingMovie }) => {
           />
         </div>
         {type == "edit" ? (
-          <FormButtons btn1="Update" btn2="Cancel" />
+          <FormButtons btn1="Update" btn2="Cancel" isLoading={isLoading} />
         ) : (
           <FormButtons btn1="add" btn2="Back" />
         )}
