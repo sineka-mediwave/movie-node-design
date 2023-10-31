@@ -1,7 +1,9 @@
 import { useState } from "react";
 import { IMovie } from "../type";
 import FormInputs from "./FormInputs";
-import FormButtons from "./FormButtons";
+import { Link } from "react-router-dom";
+import Loading from "./Loading";
+// import FormButtons from "./FormButtons";
 interface IForm {
   type: string;
   addingMovie?: (m: IMovie) => void;
@@ -16,7 +18,7 @@ const Form: React.FC<IForm> = ({ type, getMovie, addingMovie }) => {
   );
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     const { name, value } = e.target;
-    setMovie({ ...movie, [name]: value });
+    setMovie({ ...movie, [name]: value === undefined ? "" : value });
   }
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -48,11 +50,15 @@ const Form: React.FC<IForm> = ({ type, getMovie, addingMovie }) => {
             handleChange={handleChange}
           />
         </div>
-        {type == "edit" ? (
-          <FormButtons btn1="Update" btn2="Cancel" isLoading={isLoading} />
-        ) : (
-          <FormButtons btn1="add" btn2="Back" />
-        )}
+        <div className="form-input home-bar">
+          <button type="submit" className="form-btn" disabled={isLoading}>
+            {isLoading && <Loading />}
+            {type == "edit" ? <>update</> : <>Add</>}
+          </button>
+          <Link to="/" role="button" className="form-btn">
+            {type == "edit" ? <>Back</> : <>Cancel</>}
+          </Link>
+        </div>
       </>
     </form>
   );

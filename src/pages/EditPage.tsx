@@ -24,16 +24,12 @@ const EditPage = () => {
         }
       } catch (error) {
         if (error instanceof Error) {
-          console.error("Error deleting movie:", error);
-
           setShowModalMsg({
             action: "Failed",
             msg: error.message,
           });
-          console.log(error.message);
+          setShowModal(true);
         }
-      } finally {
-        setShowModal(true);
       }
     }
     if (id) {

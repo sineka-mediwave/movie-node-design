@@ -37,10 +37,10 @@ a {
 }
 
 .movie-card h3 {
-  width: 20ch;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
+  /* width: 26ch; */
+  /* overflow: hidden; */
+  white-space: wrap;
+  /* text-overflow: ellipsis; */
 }
 
 .action {
@@ -71,12 +71,14 @@ a {
 }
 
 .form-btn {
+  display: flex;
+  align-items: center;
   width: 240px;
   height: 62px;
 }
 svg {
-  width: 100px;
-  height: 100px;
+  width: 52px;
+  height: 52px;
   display: inherit;
 }
 /* .busy {
